@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="puh">
+        <item>puh1</item>
+        <item>puh2</item>
+        <item>puh3</item>
+        <item>puh4</item>
+    </string-array>
+</resources>

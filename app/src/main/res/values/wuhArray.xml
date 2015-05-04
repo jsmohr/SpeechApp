@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="wuh">
+        <item>wuh1</item>
+        <item>wuh2</item>
+        <item>wuh3</item>
+        <item>wuh4</item>
+    </string-array>
+</resources>

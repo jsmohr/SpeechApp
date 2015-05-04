@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="nnn">
+        <item>nnn1</item>
+        <item>nnn2</item>
+        <item>nnn3</item>
+        <item>nnn4</item>
+    </string-array>
+</resources>

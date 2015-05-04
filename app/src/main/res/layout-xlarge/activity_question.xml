@@ -14,14 +14,14 @@
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:textSize="50dp" />
+        android:textSize="75dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/questionNumber"
-        android:textSize="50dp"
+        android:textSize="75dp"
         android:layout_alignBottom="@+id/textView2"
         android:layout_toEndOf="@+id/textView2"
         android:text="0"
@@ -45,9 +45,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Choose the correct picture for the question:"
         android:id="@+id/textView5"
-        android:textSize="30dp"
+        android:textSize="50dp"
         android:layout_below="@+id/passedUserQuestion"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -57,26 +56,25 @@
         android:id="@+id/nextButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:textSize="30dp" />
+        android:textSize="50dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
         android:id="@+id/doneButton"
-        android:textSize="30dp"
+        android:textSize="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-         />
+        android:layout_toEndOf="@+id/textView5" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select picture"
         android:id="@+id/pictureButton"
-        android:textSize="30dp"
+        android:textSize="50dp"
         android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <ImageView

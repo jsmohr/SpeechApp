@@ -27,12 +27,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;import comsitelandonlambvsu.google.httpssites.findthatsound.R;import comsitelandonlambvsu.google.httpssites.findthatsound.imageTesterActivity;import comsitelandonlambvsu.google.httpssites.findthatsound.questionVariable;import comsitelandonlambvsu.google.httpssites.findthatsound.soundSelect;
+import java.util.ArrayList;
 
 
 public class questionActivity extends Activity {
 
-    public static final String keyName = "";
+    //public static final String "question" = "";
     String questionName;
     int questionNumber = 1;
     ArrayList<questionVariable> userQuestions = new ArrayList<>();
@@ -40,15 +40,36 @@ public class questionActivity extends Activity {
     Button next, done, pictureButton;
     ImageView userSelectedImage;
     String imagePath;
+    String questionSound;
+    int imgID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        questionName = getIntent().getStringExtra(keyName); //first time getter for the string
+        questionName = getIntent().getStringExtra("question"); //first time getter for the string
+        questionSound = getIntent().getStringExtra("sound");
         initializeVariables();
         setupTextFields();
         setupButtonClicks();
+        imgID = getIntent().getIntExtra("image", 0);
+        if(getIntent().getIntExtra("image", -1) != 0){
+            userSelectedImage.setImageResource(imgID);
+        }
+
+    }
+
+    protected void onNewIntent(Intent savedInstanceState) {
+        super.onNewIntent(savedInstanceState);
+        questionName = getIntent().getStringExtra("question"); //first time getter for the string
+        questionSound = getIntent().getStringExtra("sound");
+        System.out.println(questionSound);
+        setupTextFields();
+        setupButtonClicks();
+        imgID = getIntent().getIntExtra("image", 0);
+        if(getIntent().getIntExtra("image", -1) != 0){
+            userSelectedImage.setImageResource(imgID);
+        }
 
     }
 
@@ -59,7 +80,8 @@ public class questionActivity extends Activity {
             public void onClick(View view) {
                 questionVariable question = new questionVariable(); //creates our variable to add
                 question.setQuestion(questionName); // sets the string on our variable..
-                question.setPictureID(imagePath);
+                question.setPictureID(imgID);
+                question.setSoundName(questionSound);
                 userQuestions.add(question);  //adds question constructor variable to the array
                 //Starts the sound select activity to choose next sound...
                 Intent i = new Intent(getApplicationContext(), soundSelect.class); //creates intent
@@ -74,9 +96,10 @@ public class questionActivity extends Activity {
             public void onClick(View view) {
                 questionVariable question = new questionVariable(); //creates our variable to add
                 question.setQuestion(questionName); // sets the string on our variable..
-                question.setPictureID(imagePath);//sets the image filepath to pass on
+                question.setPictureID(imgID);//sets the image filepath to pass on
+                question.setSoundName(questionSound);//sets the sound object used by the question
                 userQuestions.add(question);  //adds question constructor variable to the array
-                Intent tester = new Intent(getApplicationContext(), imageTesterActivity.class); //creates intent
+                Intent tester = new Intent(getApplicationContext(), GameActivity.class); //creates intent
                 tester.putParcelableArrayListExtra("arraySent", userQuestions);
                 startActivity(tester);
                 finish();
@@ -89,14 +112,18 @@ public class questionActivity extends Activity {
         pictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent();
-
-                //intent.setAction(Intent.ACTION_GET_CONTENT);
-                //startActivityForResult(Intent.createChooser(intent, "Select Picture"), 3);
+                Intent intent = new Intent(getApplicationContext(), imageSelect.class);
+                Bundle extras = new Bundle();
+                extras.putString("sound", questionSound);
+                extras.putString("question", questionName);
+                intent.putExtras(extras);
+                startActivityForResult(intent, 2);
+                /*intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 3);
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 // Start the Intent
-                startActivityForResult(galleryIntent, 3);
+                startActivityForResult(galleryIntent, 3);*/
             }
         });
     }
@@ -108,11 +135,17 @@ public class questionActivity extends Activity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==2)
         {
-            questionName = data.getStringExtra(keyName);
-            userSelectedImage.setImageDrawable(null);
+            imgID = data.getIntExtra("image", 0);
+            System.out.println(imgID);
+            System.out.println("Screw you android debugging");
+            questionName = data.getStringExtra("question");
+            userSelectedImage.setImageResource(imgID);
             userQuestion.setText(questionName);
+            questionSound = data.getStringExtra("sound");
             questionNumber++;
             questionNum.setText(Integer.toString(questionNumber) + ":");
+            System.out.println(getIntent().getIntExtra("image", 0));
+
         }
         if (requestCode == 3 && resultCode == RESULT_OK && null != data) {
             // Get the Image from data
@@ -178,4 +211,6 @@ public class questionActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

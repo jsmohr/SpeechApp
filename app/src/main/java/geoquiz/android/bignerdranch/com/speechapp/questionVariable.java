@@ -9,7 +9,7 @@ import android.os.Parcelable;
 public class questionVariable implements Parcelable{
 
     String question;
-    String pictureID;
+    int pictureID;
     String soundName;
 
     @Override
@@ -21,26 +21,26 @@ public class questionVariable implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(question);
-        dest.writeString(pictureID);
+        dest.writeInt(pictureID);
         dest.writeString(soundName);
 
     }
     private void readFromParcel(Parcel in) {
         question = in.readString();
-        pictureID = in.readString();
+        pictureID = in.readInt();
         soundName = in.readString();
     }
     public questionVariable()
     {
         question = "";
-        pictureID = "";
+        pictureID = 0;
         soundName = "";
 
     }
 
     public questionVariable(Parcel parcel) {
         this.question = parcel.readString();
-        this.pictureID = parcel.readString();
+        this.pictureID = parcel.readInt();
         this.soundName = parcel.readString();
     }
 
@@ -53,11 +53,11 @@ public class questionVariable implements Parcelable{
         question = userQuestion;
         return question;
     }
-    public String getPictureID()
+    public int getPictureID()
     {
         return pictureID;
     }
-    public String setPictureID(String newPictureID) {
+    public int setPictureID(int newPictureID) {
         pictureID = newPictureID;
         return pictureID;
     }
